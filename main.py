@@ -6,6 +6,7 @@ from servo_motor import ServoController
 
 class Main:
     """ main class that will handle the loop """
+    SERVO_NAME = "servo_1"
 
     def __init__(self):
         """
@@ -14,7 +15,7 @@ class Main:
         with open("./params/servo_params.json") as infile:
             self._conf = json.load(infile)
 
-        self._servo = ServoController(signal_pin=0, **self._conf["servo_1"])
+        self._servo = ServoController(signal_pin=0, **self._conf[self.SERVO_NAME])
 
     def run(self) -> None:
         """
