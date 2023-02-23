@@ -19,17 +19,17 @@ class ServoController:
         self._min_sleep = conf.get("min_sleep", 0.0001)  # minimum sleeping time between each iteration
         self._max_sleep = conf.get("max_sleep", 0.005)  # maximum sleeping time between each iteration
         self._current_angle = 0
-        self.go_to_position(angle=self._angle_to_duty(0), speed=100, inc=1)
+        self.go_to_position(angle=self._angle_to_duty(0), speed=100, increment_factor=1)
 
-    def go_to_position(self, angle: int, speed: int, inc: int) -> float:
+    def go_to_position(self, angle: int, speed: int, increment_factor: int) -> float:
         """
-        set the position of the servo in degree.
-        we have setup the position with 0 corresponding to the middle, positive angles to clock-wise,
-        and negative angles to counter clock-wise.
-        e.g. if the servo can rotate 180 degrees, the middle will be 0, the max on the right will be 90 and the max
-        on the left will be -90.
+        To set the position of the servo in degrees, we have set up the position with 0 corresponding to the middle,
+        positive angles to clockwise rotation, and negative angles to counterclockwise rotation.
+        For example, if the servo can rotate 180 degrees, the middle will be 0, the maximum position on the right
+        will be 90 degrees, and the maximum position on the left will be -90 degrees.
         :param angle: position in degree
         :param speed: value between 1 and 100 corresponding to the percent of the maximum speed of the servo
+        :param increment_factor: how many times the minimum increment
         """
         # range the value of angle between -90 and 90
         angle = max(-self._max_angle/2, angle)
@@ -38,7 +38,7 @@ class ServoController:
         value_start = self._angle_to_duty(angle=self._current_angle)
         value_end = self._angle_to_duty(angle=angle)
 
-        increment = inc if value_end - value_start > 0 else -inc
+        increment = increment_factor if value_end - value_start > 0 else -increment_factor
         sleep_iter = self._max_sleep - (self._max_sleep - self._min_sleep) * speed / 100 + self._min_sleep
 
         self._current_angle = angle
