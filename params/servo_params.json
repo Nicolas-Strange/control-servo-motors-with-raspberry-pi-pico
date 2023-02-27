@@ -1,9 +1,9 @@
 {
   "servo_1": {
-    "min_duty": 1500,
-    "max_duty": 9000,
-    "max_sleep": 0.004,
-    "min_sleep": 0.0001,
+    "min_duty": 1100,
+    "max_duty": 10000,
+    "max_sleep_us": 4000,
+    "min_sleep_us": 0,
     "max_angle": 270
   }
 }

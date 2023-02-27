@@ -43,7 +43,7 @@ class ServoController:
             int(round(self._max_sleep - (self._max_sleep - self._min_sleep) * speed / 100 + self._min_sleep, 0))
 
         self._current_angle = angle
-        for value in range(value_start, value_end + increment, increment):
+        for value in range(value_start, value_end, increment):
             self._servo.duty_u16(value)
             sleep_us(sleep_iter)
 
