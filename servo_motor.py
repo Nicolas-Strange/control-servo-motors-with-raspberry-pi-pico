@@ -13,15 +13,17 @@ class ServoController:
         """
         self._servo = PWM(Pin(signal_pin))
         self._servo.freq(freq)
+
         self._max_angle = conf.get("max_angle", 90)  # maximum operating angle
         self._min_duty = conf.get("min_duty", 1950)  # minimum value of the duty cycle
         self._max_duty = conf.get("max_duty", 8600)  # maximum value of the duty cycle
         self._min_sleep = conf.get("min_sleep_us", 100)  # minimum sleeping time between each iteration
         self._max_sleep = conf.get("max_sleep_us", 4000)  # maximum sleeping time between each iteration
         self._current_angle = 0
-        self.go_to_position(angle=self._angle_to_duty(0), speed=100, increment_factor=1)
+        self.go_to_position(angle=0, speed=100, increment_factor=1)
+        sleep_us(10 ** 6)
 
-    def go_to_position(self, angle: int, speed: int, increment_factor: int) -> float:
+    def go_to_position(self, angle: int, speed: int) -> None:
         """
         To set the position of the servo in degrees, we have set up the position with 0 corresponding to the middle,
         positive angles to clockwise rotation, and negative angles to counterclockwise rotation.
@@ -29,21 +31,27 @@ class ServoController:
         will be 90 degrees, and the maximum position on the left will be -90 degrees.
         :param angle: position in degree
         :param speed: value between 1 and 100 corresponding to the percent of the maximum speed of the servo
-        :param increment_factor: how many times the minimum increment
         """
+
         # range the value of angle between -90 and 90
-        angle = max(-self._max_angle/2, angle)
-        angle = min(self._max_angle/2, angle)
+        angle = max(-self._max_angle / 2, angle)
+        angle = min(self._max_angle / 2, angle)
 
         value_start = self._angle_to_duty(angle=self._current_angle)
         value_end = self._angle_to_duty(angle=angle)
 
+        print(value_start, value_end)
         increment = increment_factor if value_end - value_start > 0 else -increment_factor
         sleep_iter = \
             int(round(self._max_sleep - (self._max_sleep - self._min_sleep) * speed / 100 + self._min_sleep, 0))
 
         self._current_angle = angle
-        for value in range(value_start, value_end + increment, increment):
+
+        if abs(increment) > abs(value_end - value_start):
+            self._servo.duty_u16(value_end)
+            return sleep_iter
+
+        for value in range(value_start, value_end, increment):
             self._servo.duty_u16(value)
             sleep_us(sleep_iter)
 
@@ -57,3 +65,10 @@ class ServoController:
         """ convert the angle to duty cycle """
         return int(((self._max_angle // 2) - angle) *
                    (self._max_duty - self._min_duty) / self._max_angle + self._min_duty)
+
+    def _calcuate_increment_factor(self, speed):
+        """
+        calculation of the increment factor based on the analysis of the rotation speed of the servo.
+        See the tutorial for more explanations
+        """
+        increment_factor
