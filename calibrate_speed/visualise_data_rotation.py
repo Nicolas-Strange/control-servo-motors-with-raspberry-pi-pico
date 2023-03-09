@@ -1,11 +1,6 @@
-import json
-
-from scipy import stats
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from scipy.optimize import minimize
-from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 from sklearn.linear_model import LinearRegression
 
