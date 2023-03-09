@@ -39,8 +39,8 @@ def plot(x: list, y: list, y_p: list) -> None:
     fig = plt.figure()
     ax = fig.add_subplot()
 
-    ax.scatter(x, y_p, s=40, color="orange", label="Predicted")
-    ax.scatter(x, y, s=20, color="dodgerblue", label="Real")
+    ax.scatter(x, y, s=60, color="dodgerblue", label="Real")
+    ax.scatter(x, y_p, s=60, color="red", label="Predicted", marker="+")
 
     ax.set_xlabel('waiting time between each steps (ms)')
     ax.set_ylabel('Rotation speed (°/s)')
@@ -110,7 +110,7 @@ def run():
 
         values.extend([[i, x[ind - 1], y[ind - 1], y_p[ind - 1]] for ind in range(1, len(x) + 1)])
         # print(list(res.x))
-        # plot(x, y, y_p)
+        plot(x, y, y_p)
     print(parameters)
 
     name_servo = "servo_1"
