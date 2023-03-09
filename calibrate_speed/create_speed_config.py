@@ -110,7 +110,7 @@ def run():
 
         values.extend([[i, x[ind - 1], y[ind - 1], y_p[ind - 1]] for ind in range(1, len(x) + 1)])
         # print(list(res.x))
-        plot(x, y, y_p)
+        # plot(x, y, y_p)
     print(parameters)
 
     name_servo = "servo_1"
