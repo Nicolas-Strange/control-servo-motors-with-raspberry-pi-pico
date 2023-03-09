@@ -31,7 +31,7 @@ class Main:
         try:
             self._init_position()
 
-            with open(f'{self.FILE_NAME}.csv', 'a') as fd:
+            with open(f'{self.FILE_NAME}.csv', 'w') as fd:
                 fd.write('rotation_speed(°/s),steps,waiting_time(s)\n')
 
             for step in range(1, 20):
@@ -42,13 +42,12 @@ class Main:
                     end_time = utime.ticks_us()
                     time_proc = utime.ticks_diff(end_time, start_time) / (10 ** 6)
                     rotation_speed = 180 / time_proc
-                    if rotation_speed > self.MAX_SPEED:
-                        continue
 
                     self._append_file(f"{rotation_speed},{step},{waiting_time}")
 
-                    print(f"rotation_speed(°/s): {rotation_speed} -- "
-                          f"step: {step} -- waiting_time(s) {waiting_time}")
+                    print(f"rotation_speed(°/s): {rotation_speed} -- step: {step} -- waiting_time(s) {waiting_time}")
+
+                    self._init_position()
 
         except KeyboardInterrupt:
             self._servo.release()

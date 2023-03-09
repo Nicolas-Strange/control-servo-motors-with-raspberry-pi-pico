@@ -4,6 +4,7 @@
     "max_duty": 7500,
     "max_sleep_us": 4000,
     "min_sleep_us": 0,
-    "max_angle": 180
+    "max_angle": 180,
+    "max_speed_d_s": 600
   }
 }

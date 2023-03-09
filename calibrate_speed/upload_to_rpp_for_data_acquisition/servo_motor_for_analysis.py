@@ -14,10 +14,10 @@ class ServoController:
         self._servo = PWM(Pin(signal_pin))
         self._servo.freq(freq)
 
-        self._max_angle = conf.get("max_angle", 90)  # maximum operating angle
-        self._min_duty = conf.get("min_duty", 1950)  # minimum value of the duty cycle
-        self._max_duty = conf.get("max_duty", 8600)  # maximum value of the duty cycle
-        self._min_sleep = conf.get("min_sleep_us", 100)  # minimum sleeping time between each iteration
+        self._max_angle = conf.get("max_angle", 180)  # maximum operating angle
+        self._min_duty = conf.get("min_duty", 1500)  # minimum value of the duty cycle
+        self._max_duty = conf.get("max_duty", 7500)  # maximum value of the duty cycle
+        self._min_sleep = conf.get("min_sleep_us", 0)  # minimum sleeping time between each iteration
         self._max_sleep = conf.get("max_sleep_us", 4000)  # maximum sleeping time between each iteration
         self._current_angle = 0
         self.go_to_position(angle=0, percent_waiting=100, steps=1)
@@ -43,7 +43,7 @@ class ServoController:
         value_end = self._angle_to_duty(angle=angle)
 
         increment = steps if value_end - value_start > 0 else -steps
-        sleep_iter = \
+        waiting_time = \
             int(round(
                 self._max_sleep - (self._max_sleep - self._min_sleep) * percent_waiting / 100 + self._min_sleep, 0
             ))
@@ -52,13 +52,13 @@ class ServoController:
 
         if abs(increment) > abs(value_end - value_start):
             self._servo.duty_u16(value_end)
-            return sleep_iter
+            return waiting_time
 
         for value in range(value_start, value_end, increment):
             self._servo.duty_u16(value)
-            sleep_us(sleep_iter)
+            sleep_us(waiting_time)
 
-        return sleep_iter / 10 ** 6
+        return waiting_time / (10 ** 6)
 
     def release(self) -> None:
         """ release the PWM """
