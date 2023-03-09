@@ -8,7 +8,6 @@ class Main:
     """ main class that will handle the loop """
     FILE_NAME = "time_analysis_servo_raspberry_pico"
     SERVO_NAME = "servo_1"
-    MAX_SPEED = 600
 
     min_val_inc = -90
     max_val_inc = 90
@@ -40,8 +39,8 @@ class Main:
                     waiting_time = \
                         self._servo.go_to_position(angle=self.max_val_inc, percent_waiting=sleep_tm, steps=step)
                     end_time = utime.ticks_us()
-                    time_proc = utime.ticks_diff(end_time, start_time) / (10 ** 6)
-                    rotation_speed = 180 / time_proc
+                    rotation_time = utime.ticks_diff(end_time, start_time) / (10 ** 6)
+                    rotation_speed = 180 / rotation_time
 
                     self._append_file(f"{rotation_speed},{step},{waiting_time}")
 
