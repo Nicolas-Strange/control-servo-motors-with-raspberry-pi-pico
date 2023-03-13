@@ -111,12 +111,22 @@ def run():
         values.extend([[i, x[ind - 1], y[ind - 1], y_p[ind - 1]] for ind in range(1, len(x) + 1)])
         # print(list(res.x))
         # plot(x, y, y_p)
-    print(parameters)
+
+    # Clean up unnecessary functions
+    clean_parameters = {}
+
+    max_step_all = max([int(i) for i in parameters.keys()])
+    for step in range(1, max_step_all, 1):
+        max_speed = parameters[step]["max_speed"]
+        min_speed = parameters[step]["min_speed"]
+        clean_parameters[step] = parameters[step]
+        if min_speed <= max_speed_all <= max_speed:
+            break
 
     name_servo = "servo_1"
     path_config = "../upload_to_raspberry_pi_pico/params/servo_params.json"
     config = load_json(path_config)
-    config[name_servo]["speed_config"] = parameters
+    config[name_servo]["speed_config"] = clean_parameters
 
     config[name_servo]["min_speed_d_s"] = min_speed_all
     config[name_servo]["max_speed_d_s"] = max_speed_all
