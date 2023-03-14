@@ -131,6 +131,8 @@ def run():
     config[name_servo]["min_speed_d_s"] = min_speed_all
     config[name_servo]["max_speed_d_s"] = max_speed_all
 
+    print(config)
+
     save_json(path=path_config, json_to_save=config)
 
     values = np.array(values)

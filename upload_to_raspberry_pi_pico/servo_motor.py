@@ -75,7 +75,7 @@ class ServoController:
 
         speed = self._min_speed + percent_speed * (self._max_speed - self._min_speed) / 100
 
-        for step in range(1, self._max_step, 1):
+        for step in range(1, self._max_step + 1, 1):
             step = str(step)
             max_speed = self._speed_config[step]["max_speed"]
             min_speed = self._speed_config[step]["min_speed"]
