@@ -44,20 +44,22 @@ class ServoController:
         value_start = self._angle_to_duty(angle=self._current_angle)
         value_end = self._angle_to_duty(angle=angle)
 
-        step, waiting_time = self._get_variable_set(percent_speed)
-        increment = step if value_end - value_start > 0 else -step
+        step_calc, waiting_time = self._get_variable_set(percent_speed)
+        steps = int(self._max_angle / step_calc)
+        increment = steps if value_end - value_start > 0 else -steps
 
-        self._current_angle = angle
-
-        if abs(increment) > abs(value_end - value_start):
+        if abs(increment) >= abs(angle - self._current_angle):
             self._servo.duty_u16(value_end)
-            return waiting_time, step
+            self._current_angle = angle
+            return waiting_time / (10 ** 6), step_calc
 
-        for value in range(value_start, value_end, increment):
+        for value in range(value_start, value_end + increment, increment):
             self._servo.duty_u16(value)
             sleep_us(waiting_time)
 
-        return waiting_time / (10 ** 6), step
+        self._current_angle = angle
+
+        return waiting_time / (10 ** 6), step_calc
 
     def release(self) -> None:
         """ release the PWM """
@@ -75,12 +77,11 @@ class ServoController:
 
         speed = self._min_speed + percent_speed * (self._max_speed - self._min_speed) / 100
 
-        for step in range(1, self._max_step + 1, 1):
-            step = str(step)
-            max_speed = self._speed_config[step]["max_speed"]
-            min_speed = self._speed_config[step]["min_speed"]
+        for step, value in self._speed_config.items():
+            max_speed = value["max_speed"]
+            min_speed = value["min_speed"]
             if min_speed <= speed <= max_speed:
-                params = self._speed_config[step]["params"]
+                params = value["params"]
 
                 # When we ran the regression, we multiplied the waiting time by 1000 to facilitate better convergence
                 # of the model. Additionally, since the waiting time must be in microseconds,

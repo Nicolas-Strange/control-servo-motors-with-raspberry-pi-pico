@@ -22,7 +22,7 @@ def plot(x: list, y: list, y_p: list, text: str) -> None:
 
 def run():
     """ core method to perform the analysis """
-    df = pd.read_csv("data/data_rotation_results.csv")
+    df = pd.read_csv("data/data_rotation_results_servo_sg9.csv")
 
     x = df.iloc[:, :-1].values
     y = df.iloc[:, 1].values

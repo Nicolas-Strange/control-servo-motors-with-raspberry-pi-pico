@@ -1,10 +1,18 @@
 {
-  "servo_1": {
+  "servo_sg9": {
     "min_duty": 1500,
     "max_duty": 7500,
     "max_sleep_us": 4000,
     "min_sleep_us": 0,
     "max_angle": 180,
+    "max_speed_d_s": 600
+  },
+  "servo_s53_20": {
+    "min_duty": 1500,
+    "max_duty": 7500,
+    "max_sleep_us": 4000,
+    "min_sleep_us": 0,
+    "max_angle": 225,
     "max_speed_d_s": 600
   }
 }
