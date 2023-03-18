@@ -23,6 +23,27 @@ class Main:
         self._servo = ServoController(signal_pin=0, **self._conf[self.SERVO_NAME])
         self._photo_intercept = Pin(1, Pin.IN, Pin.PULL_UP)
 
+    def _run(self, percent_waiting: int, step: int) -> None:
+        """ run one epoch """
+        start_time = utime.ticks_us()
+        waiting_time = \
+            self._servo.go_to_position(angle=self.max_val_inc, percent_waiting=percent_waiting, steps=step)
+
+        # While the IR sensor is not activated we wait
+        while not self._photo_intercept.value():
+            utime.sleep_us(10)
+
+        end_time = utime.ticks_us()
+        rotation_time = utime.ticks_diff(end_time, start_time) / (10 ** 6)
+
+        rotation_speed = 180 / rotation_time
+
+        self._append_file(f"{rotation_speed},{step},{waiting_time}")
+
+        print(f"rotation_speed(°/s): {rotation_speed} -- step: {step} -- waiting_time(s) {waiting_time}")
+
+        self._init_position()
+
     def run(self) -> None:
         """
         core function to iterate
@@ -35,25 +56,11 @@ class Main:
                 fd.write('rotation_speed(°/s),steps,waiting_time(s)\n')
                 
             for step in range(180, 0, -10):
-                for sleep_tm in range(100, -1, -1):
-                    start_time = utime.ticks_us()
-                    waiting_time = \
-                        self._servo.go_to_position(angle=self.max_val_inc, percent_waiting=sleep_tm, steps=step)
+                for percent_waiting in range(100, -1, -1):
+                    self._run(percent_waiting=percent_waiting, step=step)
 
-                    # While the IR sensor is not activated we wait
-                    while not self._photo_intercept.value():
-                        utime.sleep_us(10)
-
-                    end_time = utime.ticks_us()
-                    rotation_time = utime.ticks_diff(end_time, start_time) / (10 ** 6)
-
-                    rotation_speed = 180 / rotation_time
-
-                    self._append_file(f"{rotation_speed},{step},{waiting_time}")
-
-                    print(f"rotation_speed(°/s): {rotation_speed} -- step: {step} -- waiting_time(s) {waiting_time}")
-
-                    self._init_position()
+            # full speed
+            self._run(percent_waiting=0, step=1)
 
         except KeyboardInterrupt:
             self._servo.release()
