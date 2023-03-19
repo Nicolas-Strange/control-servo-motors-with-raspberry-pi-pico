@@ -7,7 +7,7 @@ from servo_motor_for_analysis import ServoController
 
 class Main:
     """ main class that will handle the loop """
-    SERVO_NAME = "servo_sg9"
+    SERVO_NAME = "servo_s53_20"
     FILE_NAME = f"time_analysis_raspberry_pico"
 
     min_val_inc = -90
@@ -54,7 +54,7 @@ class Main:
             self._init_position()
             with open(f'{self.FILE_NAME}_{self.SERVO_NAME}.csv', 'w') as fd:
                 fd.write('rotation_speed(°/s),steps,waiting_time(s)\n')
-                
+
             for step in range(180, 0, -10):
                 for percent_waiting in range(100, -1, -1):
                     self._run(percent_waiting=percent_waiting, step=step)
