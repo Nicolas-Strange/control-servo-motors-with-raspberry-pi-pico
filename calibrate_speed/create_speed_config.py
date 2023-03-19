@@ -183,7 +183,7 @@ def build_params(df: pd.DataFrame, init_params_model: list, min_mae: float,
     return parameters, max_speed_all, min_speed_all
 
 
-def save_params(name_servo: str, clean_parameters: dict, path_config_load: str, path_config_saves: str,
+def save_params(name_servo: str, clean_parameters: dict, path_config_load: str, path_config_saves: list,
                 min_speed_all: float, max_speed_all: float):
     """ override the parameters """
     config_analysis = load_json(path_config_load)
