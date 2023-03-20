@@ -25,7 +25,7 @@ class ServoController:
 
         self._current_angle = 0
         self.go_to_position(angle=0, percent_speed=100)
-        sleep_us(10 ** 6)
+        sleep_us(2000)
 
     def go_to_position(self, angle: int, percent_speed: float) -> tuple:
         """

@@ -24,15 +24,9 @@ class Main:
 
     def _run(self, percent_speed: float) -> None:
         """ run one epoch """
-        start_time = utime.ticks_us()
-        waiting_time, step = self._servo.go_to_position(angle=self.max_val_inc, percent_speed=percent_speed)
+        self._servo.go_to_position(angle=self.max_val_inc, percent_speed=percent_speed)
 
-        end_time = utime.ticks_us()
-        rotation_time = utime.ticks_diff(end_time, start_time) / (10 ** 6)
-
-        print(
-            f"percent_speed: {percent_speed} --- Rotation speed (°/s): {180 / rotation_time} -- waiting_time: {waiting_time} -- step: {step}")
-
+        utime.sleep(2)
         self._init_position()
 
     def run(self) -> None:

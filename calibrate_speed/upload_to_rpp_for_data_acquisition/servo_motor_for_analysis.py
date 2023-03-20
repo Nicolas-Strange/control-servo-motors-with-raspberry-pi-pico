@@ -22,7 +22,7 @@ class ServoController:
         self._max_speed = conf.get("max_speed_d_s", 600)  # maximum rotation_speed
         self._current_angle = 0
         self.go_to_position(angle=0, percent_waiting=0, steps=1)
-        sleep_us(10 ** 6)
+        sleep_us(2000)
 
     def go_to_position(self, angle: int, percent_waiting: float, steps: int) -> float:
         """

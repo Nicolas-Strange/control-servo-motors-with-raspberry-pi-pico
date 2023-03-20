@@ -10,7 +10,7 @@
   "servo_s53_20": {
     "min_duty": 1200,
     "max_duty": 7900,
-    "max_sleep_us": 4000,
+    "max_sleep_us": 5000,
     "min_sleep_us": 0,
     "max_angle": 270,
     "max_speed_d_s": 600

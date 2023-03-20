@@ -30,27 +30,27 @@
         "min_duty": 1200,
         "max_duty": 7900,
         "max_angle": 270,
-        "max_speed_d_s": 154.86,
+        "max_speed_d_s": 155.3,
         "speed_config": {
-            "120": {
-                "min_speed": 9.34,
-                "max_speed": 134.0,
+            "180": {
+                "min_speed": 8.0,
+                "max_speed": 138.18,
                 "params": [
-                    33.48423517714356,
-                    1.847224803362496
+                    36.0393402376828,
+                    1.6389507868862878
                 ],
-                "mae": "0.7933 degree/s"
+                "mae": "0.8035 degree/s"
             },
             "20": {
-                "min_speed": 98.3,
-                "max_speed": 154.86,
+                "min_speed": 99.47,
+                "max_speed": 155.3,
                 "params": [
-                    317.64526347265684,
-                    20.293709316712416
+                    412.6038596417108,
+                    18.116473968464405
                 ],
-                "mae": "0.8469 degree/s"
+                "mae": "0.6915 degree/s"
             }
         },
-        "min_speed_d_s": 9.34
+        "min_speed_d_s": 8.0
     }
 }

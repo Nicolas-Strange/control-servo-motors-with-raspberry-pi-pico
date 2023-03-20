@@ -1,6 +1,7 @@
 # Control Servo Motors with Raspberry Pi Pico
 
 ![https://diy-home.org/](misc/assembly_bb.png)
+![https://diy-home.org/](misc/assembly_calibration_bb.png)
 
 Welcome to the "Control Servo Motors with Raspberry Pi Pico" 
 repository!

@@ -155,8 +155,9 @@ def build_params(df: pd.DataFrame, init_params_model: list, min_mae: float,
             y = y[:-1]
 
             res, y_p, mae = regression(x=x, y=y, params_model=init_params_model)
+
             is_none = mae
-            mae = min_mae + 1 if mae is None else mae
+            mae = min_mae - 1 if mae is None else mae
 
             if is_none is None or mae > min_mae or len(x) <= 3:
                 continue
@@ -174,7 +175,7 @@ def build_params(df: pd.DataFrame, init_params_model: list, min_mae: float,
             }
 
             values.extend([[i, x[ind - 1], y[ind - 1], y_p[ind - 1]] for ind in range(1, len(x) + 1)])
-            # plot(x, y, y_p)
+        # plot(x, y, y_p)
 
     if plot_graph:
         values = np.array(values)
@@ -205,7 +206,7 @@ def save_params(name_servo: str, clean_parameters: dict, path_config_load: str, 
 def run():
     """ core method to perform the analysis """
 
-    name_servo = "servo_sg9"
+    name_servo = "servo_s53_20"
     init_params_model = [24.36093280680071, 3.6269641385313385]
     max_speed_servo_specs = 600
     min_mae = 0.9
