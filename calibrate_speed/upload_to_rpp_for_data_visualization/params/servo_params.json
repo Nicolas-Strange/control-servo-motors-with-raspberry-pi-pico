@@ -1,30 +1,30 @@
 {
     "servo_sg9": {
         "min_duty": 1500,
-        "max_duty": 7500,
+        "max_duty": 7900,
         "max_angle": 180,
-        "max_speed_d_s": 264.56,
+        "max_speed_d_s": 314.37,
         "speed_config": {
             "100": {
-                "min_speed": 7.47,
-                "max_speed": 163.6,
+                "min_speed": 7.0,
+                "max_speed": 206.3,
                 "params": [
-                    27.07444878170713,
-                    1.516324260776686
+                    25.496634618050184,
+                    1.4259336006037504
                 ],
-                "mae": "0.7996 degree/s"
+                "mae": "0.7963 degree/s"
             },
-            "10": {
-                "min_speed": 129.93,
-                "max_speed": 264.56,
+            "20": {
+                "min_speed": 62.82,
+                "max_speed": 314.37,
                 "params": [
-                    461.7463084268959,
-                    16.056169435735676
+                    243.2093736931649,
+                    2.956848883636942
                 ],
-                "mae": "0.8563 degree/s"
+                "mae": "0.8737 degree/s"
             }
         },
-        "min_speed_d_s": 7.47
+        "min_speed_d_s": 7.0
     },
     "servo_s53_20": {
         "min_duty": 1200,

@@ -7,7 +7,7 @@ from servo_motor_for_analysis import ServoController
 
 class Main:
     """ main class that will handle the loop """
-    SERVO_NAME = "servo_s53_20"
+    SERVO_NAME = "servo_sg9"
     FILE_NAME = f"time_analysis_raspberry_pico"
 
     min_val_inc = -90

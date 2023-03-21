@@ -206,7 +206,7 @@ def save_params(name_servo: str, clean_parameters: dict, path_config_load: str, 
 def run():
     """ core method to perform the analysis """
 
-    name_servo = "servo_s53_20"
+    name_servo = "servo_sg9"
     init_params_model = [24.36093280680071, 3.6269641385313385]
     max_speed_servo_specs = 600
     min_mae = 0.9

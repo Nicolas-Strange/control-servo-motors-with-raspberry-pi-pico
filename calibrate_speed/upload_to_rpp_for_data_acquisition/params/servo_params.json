@@ -1,7 +1,7 @@
 {
   "servo_sg9": {
     "min_duty": 1500,
-    "max_duty": 7500,
+    "max_duty": 7900,
     "max_sleep_us": 4000,
     "min_sleep_us": 0,
     "max_angle": 180,

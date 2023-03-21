@@ -7,7 +7,7 @@ from servo_motor import ServoController
 
 class Main:
     """ main class that will handle the loop """
-    SERVO_NAME = "servo_s53_20"
+    SERVO_NAME = "servo_sg9"
 
     min_val_inc = -90
     max_val_inc = 90
